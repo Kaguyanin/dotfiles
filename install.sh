@@ -22,7 +22,7 @@ cp -r ~/dotfiles/i3/* ~/.config/i3/
 # Configurações do Polybar
 mkdir -p ~/.config/polybar ; ins2tall -Dm644 /usr/share/doc/polybar/config $HOME/.config/polybar/config ; echo "polybar -r kobra &" > ~/.xinitrc ; rm ~/.config/polybar/config ; cp ~/dotfiles/polybar/config ~/.config/polybar/config ; polybar -r kobra
 
-# Configurações do zsh
+# Configurações do zshcd
 
 chsh -s $(which zsh)
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
