@@ -1,4 +1,4 @@
-'## INSTALAÇÕES ##
+## INSTALAÇÕES ##
 
 # Atualiza sistema
 sudo pacman -Syu --noconfirm
@@ -11,8 +11,8 @@ git clone https://github.com/terroo/fonts.git ~/fonts ; cp ~/fonts/fonts/*.otf $
 fc-cache -fv
 
 # Instala aplicações e denpendencias disponiveis no repositório da comunidade
-sudo pacman -S git yay i3-gaps i3blocks i3-help i3-scripts i3-scrot i3lock-color i3status-manjaro manjaro-i3-settings --noconfirm
-yay -S polybar'
+sudo pacman -S git yay i3-gaps i3blocks i3-help i3-scripts i3-scrot i3lock-color i3status-manjaro manjaro-i3-settings code --noconfirm
+yay -S polybar
 
 ## CONFIGURAÇÕES ##
 
