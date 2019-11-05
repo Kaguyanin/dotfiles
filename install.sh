@@ -31,3 +31,8 @@ ln -s "$ZSH_CUSTOM/themes/spaceship-prompt/spaceship.zsh-theme" "$ZSH_CUSTOM/the
 rm ~/zshrc
 cp ~/dotfiles/.zshrc ~/
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/zdharma/zplugin/master/doc/install.sh)"
+
+# Configurações do vscode
+
+rm ~/.config/Code\ -\ OSS/User/settings.json
+cp ~/dotfiles/vscode/settings.json ~/.config/Code\ -\ OSS/User/
