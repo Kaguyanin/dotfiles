@@ -1,0 +1,12 @@
+{
+    "window.menuBarVisibility": "toggle",
+    "workbench.colorTheme": "Dracula",
+    "git.autofetch": true,
+    "terminal.integrated.shell.osx": "/bin/zsh",
+    "terminal.integrated.shell.linux": "/bin/zsh",
+    "terminal.integrated.shell.windows": "/bin/zsh",
+    "workbench.iconTheme": "material-icon-theme",
+    "editor.mouseWheelZoom": true,
+    "editor.fontLigatures": true,
+    "editor.fontFamily": "Fira Code",
+}

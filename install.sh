@@ -11,7 +11,7 @@ git clone https://github.com/terroo/fonts.git ~/fonts ; cp ~/fonts/fonts/*.otf $
 fc-cache -fv
 
 # Instala aplicações e denpendencias disponiveis no repositório da comunidade
-sudo pacman -S git yay i3-gaps i3blocks i3-help i3-scripts i3-scrot i3lock-color i3status-manjaro manjaro-i3-settings code --noconfirm
+sudo pacman -S git yay i3-gaps i3blocks i3-help i3-scripts i3-scrot i3lock-color i3status-manjaro manjaro-i3-settings code zsh --noconfirm
 yay -S polybar
 
 ## CONFIGURAÇÕES ##
@@ -22,6 +22,12 @@ cp -r ~/dotfiles/i3/* ~/.config/i3/
 # Configurações do Polybar
 mkdir -p ~/.config/polybar ; ins2tall -Dm644 /usr/share/doc/polybar/config $HOME/.config/polybar/config ; echo "polybar -r kobra &" > ~/.xinitrc ; rm ~/.config/polybar/config ; cp ~/dotfiles/polybar/config ~/.config/polybar/config ; polybar -r kobra
 
-# RESET
+# Configurações do zsh
 
-i3-msg restart
+chsh -s $(which zsh)
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+git clone https://github.com/denysdovhan/spaceship-prompt.git "$ZSH_CUSTOM/themes/spaceship-prompt"
+ln -s "$ZSH_CUSTOM/themes/spaceship-prompt/spaceship.zsh-theme" "$ZSH_CUSTOM/themes/spaceship.zsh-theme"
+rm ~/zshrc
+cp ~/dotfiles/.zshrc ~/
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/zdharma/zplugin/master/doc/install.sh)"
