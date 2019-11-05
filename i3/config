@@ -1,0 +1,433 @@
+#
+#  ██╗██████╗ ██╗    ██╗███╗   ███╗
+#  ██║╚════██╗██║    ██║████╗ ████║
+#  ██║ █████╔╝██║ █╗ ██║██╔████╔██║
+#  ██║ ╚═══██╗██║███╗██║██║╚██╔╝██║
+#  ██║██████╔╝╚███╔███╔╝██║ ╚═╝ ██║
+#  ╚═╝╚═════╝  ╚══╝╚══╝ ╚═╝     ╚═╝
+#
+#  KingKobra87's i3 config
+#  https://www.github.com/kingkobra87/dotfiles
+#
+
+
+############################
+###### BASIC SETTINGS ######
+############################
+
+font pango:TamzenForPowerline Regular 11
+
+# note: this removes window titles. when in use, enable xwindow module in `polybar`
+new_window pixel 2
+new_float pixel 2
+
+# set mod keys
+# Mod1 = <Alt>
+# Mod4 = <Super> / <Meta> / <Windows>
+set $alt Mod1
+set $mod Mod4
+
+# use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+# reload the configuration file
+bindsym $mod+Shift+c reload
+
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+r restart
+
+# copy a wallpaper to ~/.i3/res/wall-tmp and apply it with this script.
+bindsym $mod+shift+w exec --no-startup-id ~/.i3/scripts/set-wallpaper.sh
+
+# note: several universal keybindings have been moved to `xbindkeys`
+# for easy usage in other window managers and desktop environments.
+# see configuration in ~/.xbindkeysrc
+
+
+#####################
+###### COLOURS ######
+#####################
+
+set $bg         #282A36
+set $fg         #F8F8F2
+
+set $dark       #1E1F26
+set $medium     #474b61
+set $light      #E6E6E6
+
+set $red        #FF5555
+set $magenta    #FF79C6
+set $blue       #BD93F9
+set $cyan       #8BE9FD
+set $green      #50FA7B
+set $yellow     #F1FA8C
+
+# class                 border      background  text        indicator   child_border
+client.focused          $blue       $blue       $blue       $blue       $blue
+client.focused_inactive $dark       $dark       $dark       $dark       $dark
+client.unfocused        $dark       $dark       $dark       $dark       $dark
+client.urgent           $magenta    $magenta    $magenta    $magenta    $magenta
+client.placeholder      $green      $green      $green      $green      $green
+
+client.background       $bg
+
+
+##############################
+###### I3-GAPS SETTINGS ######
+##############################
+
+smart_borders on
+smart_gaps on
+gaps inner 16
+gaps outer 0
+
+# adjust gaps on-the-fly
+set $mode_gaps Gaps: (O)uter, (I)nner
+set $mode_gaps_outer Outer Gaps: +|-|0 (local), Shift + +|-|0 (global)
+set $mode_gaps_inner Inner Gaps: +|-|0 (local), Shift + +|-|0 (global)
+
+mode "$mode_gaps" {
+        bindsym o      mode "$mode_gaps_outer"
+        bindsym i      mode "$mode_gaps_inner"
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+
+mode "$mode_gaps_inner" {
+        bindsym plus  gaps inner current plus 1
+        bindsym minus gaps inner current minus 1
+        bindsym 0     gaps inner current set 0
+
+        bindsym Shift+plus  gaps inner all plus 1
+        bindsym Shift+minus gaps inner all minus 1
+        bindsym Shift+0 gaps inner all set 0
+
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+mode "$mode_gaps_outer" {
+        bindsym plus  gaps outer current plus 1
+        bindsym minus gaps outer current minus 1
+        bindsym 0 gaps outer current set 0
+
+        bindsym Shift+plus  gaps outer all plus 1
+        bindsym Shift+minus gaps outer all minus 1
+        bindsym Shift+0 gaps outer all set 0
+
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+bindsym $mod+Shift+g mode "$mode_gaps"
+
+
+#################################
+###### WINDOW MANIPULATION ######
+#################################
+
+# kill focused window
+bindsym $mod+q kill
+
+# change focus with cursor keys
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+# change focus with vi keybindings
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+
+# move focused window with cursor keys
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+# move focused window with vi keybindings
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+
+# split in horizontal orientation
+bindsym $mod+b split h;exec notify-send 'tile horizontally'
+# split in vertical orientation
+bindsym $mod+v split v;exec notify-send 'tile vertically'
+
+# enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen toggle
+
+# change container layout (stacked, tabbed, toggle split)
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+# toggle tiling / floating
+bindsym $mod+Shift+space floating toggle
+
+# change focus between tiling / floating windows
+bindsym $mod+space focus mode_toggle
+
+# focus the parent container
+bindsym $mod+a focus parent
+
+# focus the child container
+bindsym $mod+z focus child
+
+# resize window (you can also use the mouse for that)
+mode "Resize" {
+        # these bindings trigger as soon as you enter the resize mode
+
+        # pressing 'LEFT' or 'H' will shrink the window’s width.
+        # pressing 'RIGHT' or 'L' will grow the window’s width.
+        # pressing 'UP' or 'K' will shrink the window’s height.
+        # pressing 'DOWN' or 'J' will grow the window’s height.
+        bindsym Down resize grow height 5 px or 5 ppt
+        bindsym Up resize shrink height 5 px or 5 ppt
+        bindsym Right resize grow width 5 px or 5 ppt
+        bindsym Left resize shrink width 5 px or 5 ppt
+        bindsym j resize grow height 5 px or 5 ppt
+        bindsym k resize shrink height 5 px or 5 ppt
+        bindsym l resize grow width 5 px or 5 ppt
+        bindsym h resize shrink width 5 px or 5 ppt
+
+        # back to normal: Enter or Escape
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+bindsym $mod+r mode "Resize"
+
+
+#################################
+###### WORKSPACE SETTINGS #######
+#################################
+
+# workspace names
+# icons assigned by `polybar`
+set $ws1 "1:Internet"
+set $ws2 "2:Files"
+set $ws3 "3:Terminal"
+set $ws4 "4:Editor"
+set $ws5 "5:Chat"
+set $ws6 "6:Downloads"
+set $ws7 "7:Games"
+set $ws8 "8:Editing"
+set $ws9 "9:Office"
+set $ws10 "10:Misc"
+
+# switch to workspace
+bindsym $mod+1 workspace $ws1
+bindsym $mod+2 workspace $ws2
+bindsym $mod+3 workspace $ws3
+bindsym $mod+4 workspace $ws4 layout tabbed
+bindsym $mod+5 workspace $ws5 layout tabbed
+bindsym $mod+6 workspace $ws6 layout tabbed
+bindsym $mod+7 workspace $ws7
+bindsym $mod+8 workspace $ws8 layout tabbed
+bindsym $mod+9 workspace $ws9 layout tabbed
+bindsym $mod+0 workspace $ws10
+
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace $ws1
+bindsym $mod+Shift+2 move container to workspace $ws2
+bindsym $mod+Shift+3 move container to workspace $ws3
+bindsym $mod+Shift+4 move container to workspace $ws4
+bindsym $mod+Shift+5 move container to workspace $ws5
+bindsym $mod+Shift+6 move container to workspace $ws6
+bindsym $mod+Shift+7 move container to workspace $ws7
+bindsym $mod+Shift+8 move container to workspace $ws8
+bindsym $mod+Shift+9 move container to workspace $ws9
+bindsym $mod+Shift+0 move container to workspace $ws10
+
+# easy workspace navigation
+bindsym $mod+Ctrl+Right workspace next
+bindsym $mod+Ctrl+Left workspace prev
+bindsym $mod+Tab workspace back_and_forth
+# Alt+Tab, set in `xbindkeys`, can be used as a window switcher similar to Windows
+
+# assign apps to specific workspaces and focus when launching:
+
+# workspace 1 - web browsers
+assign [class="Chromium"] $ws1
+for_window [class="Chromium"] focus
+assign [class="Firefox"] $ws1
+for_window [class="Firefox"] focus
+assign [class="Firefox-Beta"] $ws1
+for_window [class="Firefox-Beta"] focus
+
+# workspace 2 - file browsers & utilities
+assign [class="Pcmanfm"] $ws2
+for_window [class="Pcmanfm"] focus
+assign [class="Sunflower"] $ws2
+for_window [class="Sunflower"] focus
+assign [class="File-roller"] $ws2
+for_window [class="File-roller"] focus
+assign [class="Catfish"] $ws2
+for_window [class="Catfish"] focus
+assign [class="Spek"] $ws2
+for_window [class="Spek"] focus
+assign [class="Pyrenamer"] $ws2
+for_window [class="Pyrenamer"] focus
+assign [class="XnView"] $ws2
+for_window [class="XnView"] focus
+assign [class="Mediainfo-gui"] $ws2
+for_window [class="Mediainfo-gui"] focus
+
+# workspace 3 - terminals
+assign [class="Xfce4-terminal"] $ws3
+for_window [class="Xfce4-terminal"] focus
+
+# workspace 4 - text editors
+assign [class="Subl3"] $ws4
+for_window [class="Subl3"] focus
+assign [class="Atom"] $ws4
+for_window [class="Atom"] focus
+
+# workspace 5 - chat & messaging
+assign [class="discord"] $ws5
+for_window [class="discord"] focus
+assign [class="Whatsie"] $ws5
+for_window [class="Whatsie"] focus
+assign [class="yakyak"] $ws5
+for_window [class="yakyak"] focus
+assign [class="Caprine"] $ws5
+for_window [class="Caprine"] focus
+assign [class="Rambox"] $ws5
+for_window [class="Rambox"] focus
+assign [class="Hexchat"] $ws5
+for_window [class="Hexchat"] focus
+
+# workspace 6 - downloading
+assign [class="Deluge"] $ws6
+for_window [class="Deluge"] focus
+assign [class="Uget-gtk"] $ws6
+for_window [class="Uget-gtk"] focus
+assign [class="Filezilla"] $ws6
+for_window [class="Filezilla"] focus
+assign [class="Youtube-dl-gui"] $ws6
+for_window [class="Youtube-dl-gui"] focus
+
+# workspace 7 - gaming
+assign [class="Steam"] $ws7
+for_window [class="Steam"] focus
+assign [class="dosbox"] $ws7
+for_window [class="dosbox"] focus
+
+# workspace 8 - multimedia editing
+assign [class="Gimp-2.8"] $ws8
+for_window [class="Gimp-2.8"] focus
+assign [class="Gimp"] $ws8
+for_window [class="Gimp"] focus
+assign [class="Darktable"] $ws8
+for_window [class="Darktable"] focus
+assign [class="Pinta"] $ws8
+for_window [class="Pinta"] focus
+assign [class="Audacity"] $ws8
+for_window [class="Audacity"] focus
+assign [class="mkvtoolnix-gui"] $ws8
+for_window [class="mkvtoolnix-gui"] focus
+
+# workspace 9 - office
+assign [class="libreoffice-startcenter"] $ws9
+for_window [class="libreoffice-startcenter"] focus
+assign [class="libreoffice-calc"] $ws9
+for_window [class="libreoffice-calc"] focus
+assign [class="libreoffice-draw"] $ws9
+for_window [class="libreoffice-draw"] focus
+assign [class="libreoffice-impress"] $ws9
+for_window [class="libreoffice-impress"] focus
+assign [class="libreoffice-math"] $ws9
+for_window [class="libreoffice-math"] focus
+assign [class="libreoffice-writer"] $ws9
+for_window [class="libreoffice-writer"] focus
+
+# workspace 10 - misc
+assign [class="Font-manager"] $ws10
+for_window [class="Font-manager"] focus
+assign [class="Flashtool"] $ws10
+for_window [class="Flashtool"] focus
+assign [class="Bleachbit"] $ws10
+for_window [class="Bleachbit"] focus
+assign [class="Pamac-manager"] $ws10
+for_window [class="Pamac-manager"] focus
+assign [class="Pamac-updater"] $ws10
+for_window [class="Pamac-updater"] focus
+assign [class="FreeFileSync"] $ws10
+for_window [class="FreeFileSync"] focus
+assign [class="Kodi"] $ws10
+for_window [class="Kodi"] focus
+
+# floating windows and other window options
+for_window [class="Chromium"] border pixel 0
+for_window [class="Firefox-Beta"] border pixel 0
+for_window [class="Firefox"] border pixel 0
+for_window [class="Navigator"] border pixel 0
+for_window [class="Firefox" instance="Places"] floating enable
+for_window [title="Steam - Update News"] kill
+for_window [urgent=latest] focus
+for_window [window_role="pop-up"] floating enable
+for_window [window_role="task_dialog"] floating enable
+for_window [window_role="GtkFileChooserDialog"] floating enable
+for_window [title="File Transfer*"] floating enable
+for_window [title="Preferences$"] floating enable
+for_window [class="File-roller"] floating enable
+for_window [title="alsamixer"] floating enable
+for_window [class="URxvt"] floating enable
+for_window [class="Nm-connection-editor"] floating enable
+for_window [class="Nm-applet"] floating enable
+for_window [class="Viewnior"] floating enable
+for_window [class="Galculator"] floating enable
+for_window [class="Zathura"] floating enable
+for_window [class="Xarchiver"] floating enable
+for_window [class="Pavucontrol"] floating enable
+for_window [class="Gnome-mpv"] floating enable
+for_window [class="GParted"] floating enable
+for_window [class="Gnome-disks"] floating enable
+for_window [class="Lxappearance"] floating enable
+for_window [class="Gtk-chtheme"] floating enable
+
+
+##############################
+###### STARTUP SETTINGS ######
+##############################
+
+# display-daemon: when the HDMI display is connected, the laptop display will be turned off.
+# likewise, when the HDMI display is disconnected, the laptop display will be turned back on.
+# this also sets the audio device accordingly, and applies the wallpaper in the correct resolution.
+# credit to gurkensalat - https://faq.i3wm.org/question/6421/conditional-monitor-cofiguration.1.html
+exec --no-startup-id ~/.i3/scripts/display-daemon.sh &
+
+# `polybar` replaces `i3bar`
+# more info at https://github.com/jaagr/polybar
+# configuration in ~/.config/polybar/config
+exec_always --no-startup-id ~/.i3/scripts/polybar.sh &
+
+# launch `stacer` in scratchpad upon boot
+# <mod>+tilde toggles visibility
+exec --no-startup-id stacer &
+for_window [title="^Stacer$"] move scratchpad
+bindsym $mod+grave scratchpad show
+
+# startup apps and daemons
+exec --no-startup-id xrdb -merge ~/.Xresources &
+exec --no-startup-id feh --bg-fill ~/.i3/res/wallpaper.png &
+exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
+exec --no-startup-id gnome-keyring-daemon &
+exec --no-startup-id unclutter --timeout 3 -b &
+exec --no-startup-id xbindkeys &
+exec --no-startup-id light -S 0 &
+exec --no-startup-id compton -b &
+exec --no-startup-id twmnd &
+exec --no-startup-id nm-applet &
+exec --no-startup-id mpd &
+exec --no-startup-id udiskie -Nt2 &
+exec --no-startup-id timidity -iA &
+exec --no-startup-id blueberry-tray &
+exec --no-startup-id greenclip daemon &
+exec --no-startup-id caffeine -a &
+
+
+# enable syntax highlighting in vim/neovim. must have the i3 plugin!
+# get it at https://github.com/PotatoesMaster/i3-vim-syntax
+# vim:filetype=i3
+
