@@ -34,5 +34,4 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/zdharma/zplugin/master/doc
 
 # Configurações do vscode
 
-rm ~/.config/Code\ -\ OSS/User/settings.json
-cp ~/dotfiles/vscode/settings.json ~/.config/Code\ -\ OSS/User/
+rm ~/.config/Code\ -\ OSS/User/settings.json ; cp ~/dotfiles/vscode/settings.json ~/.config/Code\ -\ OSS/User/
