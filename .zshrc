@@ -135,7 +135,7 @@ autoload -Uz _zinit
 zinit light-mode for \
     zinit-zsh/z-a-patch-dl \
     zinit-zsh/z-a-as-monitor \
-    zinit-zsh/z-a-bin-gem-node
+    zinit-zsh/z-a-bin-gemnode
 
 ### End of Zinit's installer chunk
 
@@ -143,3 +143,4 @@ zinit light zdharma/fast-syntax-highlighting
 zinit light zsh-users/zsh-autosuggestions
 zinit light zsh-users/zsh-history-substring-search
 zinit light zsh-users/zsh-completions
+zinit light buonomo/yarn-completion 
